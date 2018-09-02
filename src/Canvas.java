@@ -45,7 +45,7 @@ public class Canvas extends JPanel{
 
             // tracé des axes
             Color coulPrec = g.getColor();
-            g.setColor(Color.GREEN);
+            g.setColor(Color.BLUE);
             if (yMin * yMax < 0) {
                 int yc = (int) By;
                 g.drawLine(0, yc - 1, d.width, yc - 1);

@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,24 +20,46 @@ public class MainFenetre extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	JLabel xmin,xmax,deltax,ymin,ymax,deltay,exp;
-	JTextField  txmin,txmax,tdeltax,tymin,tymax,tdeltay,texp;
-	JButton button;
+	JLabel x,y,fx,xmin,xmax,deltax,ymin,ymax,deltay,exp;
+	JTextField  tx,ty,tfx,txmin,txmax,tdeltax,tymin,tymax,tdeltay,texp;
+	JButton button, buttonOk;
 	Canvas mycanvas ;
 	Fonction fonc;
     private double[] valeurParametres = { -1.0, +1.0, 0.2, -1.0, +1.0, 0.2 };
 
 	public MainFenetre(){
-	setTitle("SMI6 : Tracer des fonctions math�matique");
-	setSize(600, 400);
-	/* La logique du graphic est ici : composé de trois parties : */
+	setTitle("Tracer des fonctions mathématique :");
 	Container container = getContentPane();
 	container.setLayout(new BorderLayout());
-
-	// 1 - Container du West
+	
+	// 1 - Container du NORTH
+	JPanel north = new JPanel();
+	north.setLayout(new BorderLayout());
+		// 1-1 Grid layout
+	JPanel rowNorth = new JPanel();
+	rowNorth.setLayout(new FlowLayout(FlowLayout.CENTER));
+	
+	x = new JLabel("   X =");
+	rowNorth.add(x);
+	tx = new JTextField(5);
+	rowNorth.add(tx);
+	
+	y = new JLabel("   Y =");
+	rowNorth.add(y);
+	ty = new JTextField(5);
+	rowNorth.add(ty);
+	
+	fx = new JLabel("   f(x) =");
+	rowNorth.add(fx);
+	tfx = new JTextField(5);
+	rowNorth.add(tfx);
+	
+	north.add(rowNorth);
+	
+	// 2 - Container du WEST
 	JPanel west = new JPanel();
 	west.setLayout(new BorderLayout());
-		// 1-1 Grid layout : le tableau
+		// 2-1 Grid layout : le tableau
 	JPanel row = new JPanel();
 	row.setLayout(new GridLayout(6,6));
 
@@ -71,43 +92,66 @@ public class MainFenetre extends JFrame {
 	row.add(deltay);
 	tdeltay = new JTextField(10);
 	row.add(tdeltay);
-		// 1-2- flow layout : le button
+		// 2-2- flow layout : le button
 	JPanel but = new JPanel();
 	but.setLayout(new FlowLayout());
 
-	button = new JButton("Tracer");
+	button = new JButton("Re-Tracer");
 	but.add(button);
 
 	west.add(row, BorderLayout.NORTH);
 	west.add(but, BorderLayout.CENTER);
 
-	// 2 - Container du CENTER
+	// 3 - Container du CENTER
 	mycanvas = new Canvas(this);
 	//mycanvas.setPreferredSize(new Dimension(100, 100));
 
-	// 3 - Container du SOUTH
-		// 3-1 Grid layout : le tableau
+	// 4 - Container du SOUTH
+		// 4-1 Grid layout : le tableau
 	JPanel sud = new JPanel();
 	JPanel rowsud = new JPanel();
-	rowsud.setLayout(new GridLayout(2,0));
-
-	exp = new JLabel("Entrer votre fonction f(x) � tracer par ici : ");
+	JPanel but2 = new JPanel();
+	rowsud.setLayout(new GridLayout(1,0));
+	
+	but2.setLayout(new FlowLayout());
+	buttonOk = new JButton("Tracer");
+	but2.add(buttonOk);
+	rowsud.add(but2);
+	
+	exp = new JLabel("Entrer votre fonction f(x) : ");
 	rowsud.add(exp);
 	texp = new JTextField(10);
 	rowsud.add(texp);
 
 	sud.add(rowsud);
 	// fin- :
+	container.add(north, BorderLayout.NORTH);
 	container.add(west,BorderLayout.WEST);
 	container.add(mycanvas,BorderLayout.CENTER);
 	container.add(sud,BorderLayout.SOUTH);
+	
 	/*Fin de la logic */
 	/*Début Evenements */
 	button.addActionListener(new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			try{
+				preparerLaCourbe();
+
+			}catch(Exception excep){
+				String msg = "Exception est  "+excep;
+				JOptionPane.showMessageDialog(null,msg,"Message d'erreur", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	});
+	
+	// listerner pour le deuxième button
+	
+	buttonOk.addActionListener(new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
 			try{
 				preparerLaCourbe();
 
