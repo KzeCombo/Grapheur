@@ -4,23 +4,7 @@ import java.io.StringReader;
 
 
 public class Analyseur {
-	/*
-	public static void main(String[] args) {
-		try {
-			Analyseur a = new Analyseur(args[0]);
-			Fonction f = a.analyser();
-			
-			System.out.println("f(x) = " + f);
-			
-			for(int i = 1; i < args.length; i++) {
-				double x = Double.parseDouble(args[i]);
-				System.out.println("f(" + x + ") = " + f.getValue(x));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	*/
+	
 	private StreamTokenizer buffer;
 	
 	public Analyseur(String s){
