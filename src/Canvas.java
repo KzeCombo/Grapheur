@@ -14,8 +14,9 @@ public class Canvas extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final int nombrePas = 1000;
+	// private static final int nombrePas = 1000;
     private MainFenetre cadre;
+
 
     public Canvas(MainFenetre c) {
     	cadre = c;
@@ -35,6 +36,7 @@ public class Canvas extends JPanel{
             double yMin = cadre.getYmin();
             double yMax = cadre.getYmax();
             double deltaY = cadre.deltaY();
+            double nbPas = cadre.getPas();
 
             // obtention des transformations affines pour x et y
             Dimension d = getSize();
@@ -76,7 +78,7 @@ public class Canvas extends JPanel{
             g.setColor(coulPrec);
 
             // tracé de la fonction
-            double dx = (xMax - xMin) / nombrePas;
+            double dx = (xMax - xMin) / nbPas;
             int xp = 0, yp = 0;
             for (double x = xMin; x <= xMax; x += dx) {
                 double y = expr.getValue(x);
